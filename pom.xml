@@ -6,7 +6,7 @@
 
     <groupId>vb</groupId>
     <artifactId>gamemodeitems</artifactId>
-    <version>0.0.1-alpha</version>
+    <version>0.0.2-alpha</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -22,6 +22,14 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.gmail.visualbukkit</groupId>
+            <artifactId>util</artifactId>
+            <version>0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/util/util-classes.jar</systemPath>
+        </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>

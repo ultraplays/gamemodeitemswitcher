@@ -11,6 +11,7 @@ import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.*;
 import org.bukkit.plugin.java.*;
 import org.bukkit.util.*;
+import com.gmail.visualbukkit.stdlib.VariableManager;
 
 public class PluginMain extends JavaPlugin implements Listener {
 
@@ -18,6 +19,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 	private static Object localVariableScope = new Object();
 
 	public void onEnable() {
+		VariableManager.loadVariables(this);
 		instance = this;
 		getDataFolder().mkdir();
 		getServer().getPluginManager().registerEvents(this, this);
@@ -25,6 +27,7 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	public void onDisable() {
+		VariableManager.saveVariables();
 	}
 
 	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] commandArgs) {
@@ -90,12 +93,21 @@ public class PluginMain extends JavaPlugin implements Listener {
 	public void onBlockPlaceEvent1(org.bukkit.event.block.BlockPlaceEvent event) throws Exception {
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Creative")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.CREATIVE);
+			event.getBlock().breakNaturally();
+			VariableManager.setVariable(false, new java.lang.Boolean(true), "blockplaced");
 		}
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Survival")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
+			event.getBlock().breakNaturally();
 		}
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Spectator")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.SPECTATOR);
+			event.getBlock().breakNaturally();
+		}
+		if (((java.lang.Boolean) VariableManager.getVariable(false, "blockplaced")).booleanValue()) {
+			event.getPlayer().getInventory().setItem(((int) 4d), new ItemStack(org.bukkit.Material.AIR));
+			event.getPlayer().getInventory().setItem(((int) 5d), new ItemStack(org.bukkit.Material.NETHER_PORTAL));
+			event.getPlayer().getInventory().setItem(((int) 6d), new ItemStack(org.bukkit.Material.AIR));
 		}
 	}
 
