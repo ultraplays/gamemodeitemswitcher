@@ -1,5 +1,5 @@
 name: GamemodeItems
-version: 0.0.2-alpha
+version: 0.0.3-alpha
 main: vb.$gamemodeitems.PluginMain
 author: UltraPlays
 api-version: 1.13
@@ -8,3 +8,4 @@ commands:
     aliases: [gmitem]
     permission: essentials.gamemode.all
     permission-message: You can't do this!
+  portalitem:

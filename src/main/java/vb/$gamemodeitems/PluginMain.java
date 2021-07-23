@@ -31,6 +31,15 @@ public class PluginMain extends JavaPlugin implements Listener {
 	}
 
 	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] commandArgs) {
+		if (command.getName().equalsIgnoreCase("portalitem")) {
+			try {
+				Object localVariableScope = new Object();
+				((org.bukkit.entity.Player) commandSender).getInventory().setItem(((int) 4d),
+						new ItemStack(org.bukkit.Material.NETHER_PORTAL));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		if (command.getName().equalsIgnoreCase("gamemodeitems")) {
 			try {
 				Object localVariableScope = new Object();
@@ -102,7 +111,6 @@ public class PluginMain extends JavaPlugin implements Listener {
 		}
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Spectator")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.SPECTATOR);
-			event.getBlock().breakNaturally();
 		}
 		if (((java.lang.Boolean) VariableManager.getVariable(false, "blockplaced")).booleanValue()) {
 			event.getPlayer().getInventory().setItem(((int) 4d), new ItemStack(org.bukkit.Material.AIR));
