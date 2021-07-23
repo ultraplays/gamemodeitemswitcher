@@ -108,14 +108,19 @@ public class PluginMain extends JavaPlugin implements Listener {
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Survival")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.SURVIVAL);
 			event.getBlock().breakNaturally();
+			VariableManager.setVariable(false, new java.lang.Boolean(true), "blockplaced");
 		}
 		if (PluginMain.checkEquals(event.getItemInHand().getItemMeta().getDisplayName(), "Spectator")) {
 			event.getPlayer().setGameMode(org.bukkit.GameMode.SPECTATOR);
+			event.getBlock().breakNaturally();
+			VariableManager.setVariable(false, new java.lang.Boolean(true), "blockplaced");
 		}
 		if (((java.lang.Boolean) VariableManager.getVariable(false, "blockplaced")).booleanValue()) {
 			event.getPlayer().getInventory().setItem(((int) 4d), new ItemStack(org.bukkit.Material.AIR));
 			event.getPlayer().getInventory().setItem(((int) 5d), new ItemStack(org.bukkit.Material.NETHER_PORTAL));
 			event.getPlayer().getInventory().setItem(((int) 6d), new ItemStack(org.bukkit.Material.AIR));
+			event.getBlock().getLocation().getWorld()
+					.spawnEntity(event.getBlock().getLocation(), org.bukkit.entity.EntityType.DROPPED_ITEM).remove();
 		}
 	}
 
