@@ -1,0 +1,10 @@
+name: GamemodeItems
+version: 0.0.1-alpha
+main: vb.$gamemodeitems.PluginMain
+author: UltraPlays
+api-version: 1.13
+commands:
+  gamemodeitems:
+    aliases: [gmitem]
+    permission: essentials.gamemode.all
+    permission-message: You can't do this!
